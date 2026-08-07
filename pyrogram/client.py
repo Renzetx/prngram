@@ -737,24 +737,27 @@ class Client(Methods):
 
                     if not isinstance(message, raw.types.MessageEmpty):
                         try:
-                            diff = await self.invoke(
-                                raw.functions.updates.GetChannelDifference(
-                                    channel=await self.resolve_peer(utils.get_channel_id(channel_id)),
-                                    filter=raw.types.ChannelMessagesFilter(
-                                        ranges=[raw.types.MessageRange(
-                                            min_id=update.message.id,
-                                            max_id=update.message.id
-                                        )]
-                                    ),
-                                    pts=pts - pts_count,
-                                    limit=pts,
-                                    force=False
-                                )
+                            diff = await asyncio.wait_for(
+                                self.invoke(
+                                    raw.functions.updates.GetChannelDifference(
+                                        channel=await self.resolve_peer(utils.get_channel_id(channel_id)),
+                                        filter=raw.types.ChannelMessagesFilter(
+                                            ranges=[raw.types.MessageRange(
+                                                min_id=update.message.id,
+                                                max_id=update.message.id
+                                            )]
+                                        ),
+                                        pts=pts - pts_count,
+                                        limit=pts,
+                                        force=False
+                                    )
+                                ),
+                                timeout=3.0
                             )
-                        except (ChannelPrivate, PersistentTimestampOutdated, PersistentTimestampInvalid):
-                            pass
+                        except Exception:
+                            diff = None
                         else:
-                            if not isinstance(diff, raw.types.updates.ChannelDifferenceEmpty):
+                            if diff and not isinstance(diff, raw.types.updates.ChannelDifferenceEmpty):
                                 users.update({u.id: u for u in diff.users})
                                 chats.update({c.id: c for c in diff.chats})
 
@@ -771,27 +774,32 @@ class Client(Methods):
                     )
                 )
 
-            diff = await self.invoke(
-                raw.functions.updates.GetDifference(
-                    pts=updates.pts - updates.pts_count,
-                    date=updates.date,
-                    qts=-1
+            try:
+                diff = await asyncio.wait_for(
+                    self.invoke(
+                        raw.functions.updates.GetDifference(
+                            pts=updates.pts - updates.pts_count,
+                            date=updates.date,
+                            qts=-1
+                        )
+                    ),
+                    timeout=3.0
                 )
-            )
+            except Exception:
+                diff = None
 
-            if diff.new_messages:
+            if diff and hasattr(diff, "new_messages") and diff.new_messages:
                 self.dispatcher.updates_queue.put_nowait((
                     raw.types.UpdateNewMessage(
                         message=diff.new_messages[0],
                         pts=updates.pts,
                         pts_count=updates.pts_count
                     ),
-                    {u.id: u for u in diff.users},
-                    {c.id: c for c in diff.chats}
+                    {u.id: u for u in getattr(diff, "users", [])},
+                    {c.id: c for c in getattr(diff, "chats", [])}
                 ))
-            else:
-                if diff.other_updates:  # The other_updates list can be empty
-                    self.dispatcher.updates_queue.put_nowait((diff.other_updates[0], {}, {}))
+            elif diff and hasattr(diff, "other_updates") and diff.other_updates:
+                self.dispatcher.updates_queue.put_nowait((diff.other_updates[0], {}, {}))
         elif isinstance(updates, raw.types.UpdateShort):
             self.dispatcher.updates_queue.put_nowait((updates.update, {}, {}))
         elif isinstance(updates, raw.types.UpdatesTooLong):
