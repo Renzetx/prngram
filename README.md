@@ -186,10 +186,10 @@ await app.send_message(
 
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Activities/Party%20Popper.png" alt="Party" width="30" height="30" style="vertical-align: middle;"> Komunitas & Dukungan
 
-* 📢 **Saluran Pembaruan:** [Telegram Channel (@Renboyz)](https://t.me/Renboyz)
-* 💬 **Grup Diskusi:** [Grup Dukungan](https://t.me/Renboyz)
+* 📢 **Saluran Pembaruan:** [Telegram Owner](https://t.me/Renboyz)
+* 💬 **Channel Update:** [Channel Update](https://t.me/RNMarkets)
 * 🐛 **Laporan Kendala:** [GitHub Issues](https://github.com/renzetx/RNGram/issues)
-* 📖 **Referensi Dokumentasi:** [Dokumentasi Kurigram](https://docs.pyrogram.org)
+* 📖 **Referensi Dokumentasi:** [Dokumentasi](https://docs.pyrogram.org)
 
 ---
 
@@ -201,5 +201,5 @@ Rincian lengkap dapat dibaca pada berkas [COPYING](COPYING) dan [COPYING.lesser]
 <br>
 
 <p align="center">
-  Dibuat dengan <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Heart%20on%20Fire.png" alt="Heart on fire" width="22" height="22" style="vertical-align: middle;"> oleh <b><a href="https://t.me/Renboyz">Renboys</a></b> bersama Komunitas Open Source.
+  Dikembangkan oleh <b><a href="https://t.me/Renboyz">Renboys</a></b> bersama Komunitas Open Source. <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Heart%20on%20Fire.png" alt="Heart on fire" width="22" height="22" style="vertical-align: middle;">
 </p>
