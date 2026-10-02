@@ -26,7 +26,7 @@
 
 ## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Glowing%20Star.png" alt="Star" width="30" height="30" style="vertical-align: middle;"> Mengapa Memilih RNGram?
 
-**RNGram** adalah framework Telegram MTProto API asinkron berperforma tinggi berbasis **Kurigram 2.2.26 (MTProto Layer 229)** yang dirancang untuk kebutuhan bot modern, userbot, dan aplikasi berskala besar.
+**RNGram** adalah framework Telegram MTProto API asinkron berperforma tinggi berbasis **Pyrogram (MTProto Layer 229)** yang dirancang untuk kebutuhan bot modern, userbot, dan aplikasi berskala besar.
 
 RNGram menggabungkan ekosistem protokol Telegram terkini dengan ekstensi pengembang terbaik langsung di dalam satu pustaka siap pakai tanpa dependensi eksternal yang rumit.
 
@@ -134,7 +134,7 @@ from pyrogram.helpers import ikb, btn
 @app.on_message(filters.command("menu"))
 async def menu_handler(client, message):
     keyboard = ikb([
-        [btn("📢 Saluran Resmi", "https://t.me/Renboyz", type="url")],
+        [btn("📢 Saluran Resmi", "https://t.me/RNMarkets", type="url")],
         [btn("⚡ Fitur 1", "f1"), btn("🚀 Fitur 2", "f2")],
         [btn("❌ Tutup Menu", "close_menu")]
     ])
